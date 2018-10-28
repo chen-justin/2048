@@ -300,13 +300,7 @@ class Game extends React.Component {
           emptySpaces.push(i);
         }
       }
-
-      if (!moveMade && emptySpaces.length === 0) {
-        this.setState({
-          best_score: Math.max(this.state.history[this.state.stepNumber].score, this.state.best_score),
-        })
-      }
-
+      
       if (moveMade) {
         //Generate a new tile to add in an empty space.
         if (emptySpaces) {
@@ -315,6 +309,7 @@ class Game extends React.Component {
         }
 
         this.setState({
+          best_score: Math.max(this.state.history[this.state.stepNumber].score, this.state.best_score),
           history: history.concat([
             {
               tiles: tiles,
