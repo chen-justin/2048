@@ -72,7 +72,6 @@ class Game extends React.Component {
           score: 0
         },
       ],
-      score: 0,
       best_score: 0,
       stepNumber: 0,
     }
@@ -105,9 +104,9 @@ class Game extends React.Component {
     new_tiles[arr[1]] = 2;
     console.log(new_tiles);
     this.setState({
+      best_score: Math.max(this.state.best_score, this.state.history[this.state.stepNumber].score),
       history: [{tiles: new_tiles, score: 0}],
       stepNumber: 0,
-      best_score: Math.max(this.state.best_score, this.state.score),
     })
   }
 
@@ -304,8 +303,7 @@ class Game extends React.Component {
 
       if (!moveMade && emptySpaces.length === 0) {
         this.setState({
-          best_score: Math.max(this.state.score, this.state.best_score),
-          score: 0,
+          best_score: Math.max(this.state.history[this.state.stepNumber].score, this.state.best_score),
         })
       }
 
