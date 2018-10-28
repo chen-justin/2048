@@ -335,20 +335,34 @@ class Game extends React.Component {
 
     return(
       <div className="game" onKeyPress={this.handleKeyPress}>
-        <div className = "game-info">
-          <div>2048 Clone</div>
-          <div>Score: {score}</div>
-          <div>Best: {best_score}</div>
-          <div>Current Moves: {this.state.stepNumber}</div>
+        <div className = "game-header">
+          <div className = "header">
+            <p className="title">2048</p>
+            <p clasName="subtitle">A take on 2048 in React.</p>
+          </div>
+          <div className = "game-info">
+            <div>
+              <p>Score</p>
+              <p><strong>{score}</strong></p>
+            </div>
+            <div>
+              <p>Best</p>
+              <p><strong>{best_score}</strong></p>
+            </div>
+            <div>
+              <p>Moves</p>
+              <p><strong>{this.state.stepNumber}</strong></p>
+            </div>
+          </div>
         </div>
         <Board
           tiles={current.tiles}
         />
         <div className="controls">
-          <button className="control" onClick={() => this.shift(0)}>Left</button>
-          <button className="control" onClick={() => this.shift(1)}>Up</button>
-          <button className="control" onClick={() => this.shift(2)}>Down</button>
-          <button className="control" onClick={() => this.shift(3)}>Right</button>
+          <button className="control" onClick={() => this.shift(0)}><i class="fas fa-arrow-left"></i></button>
+          <button className="control" onClick={() => this.shift(1)}><i class="fas fa-arrow-up"></i></button>
+          <button className="control" onClick={() => this.shift(2)}><i class="fas fa-arrow-down"></i></button>
+          <button className="control" onClick={() => this.shift(3)}><i class="fas fa-arrow-right"></i></button>
         </div>
       </div>
     );

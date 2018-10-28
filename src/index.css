@@ -57,8 +57,61 @@ body {
   font: 24px;
   width: 100%;
   font-family: 'Open Sans', sans-serif;
+  color: rgb(119, 110, 101);
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+a {
+  font-weight: bold;
+  color: rgb(119, 110, 101);
+}
+
+a:hover {
+  color: rgb(169, 160, 151);
+}
+
+hr {
+  border-color: rgba(119, 110, 101, .3);
+}
+
+.description {
+  margin: auto;
+  padding: 20px;
+}
+
+.game-header {
+  display: flex;
+  margin: auto;
+  margin-bottom: 30px;
+  flex-direction: row;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: auto;
+}
+
+.title {
+  display: flex;
+  font-weight: bold;
+  font-size: 40px;
+  padding-right: 20px;
+}
 .game {
   display: flex;
   flex-direction: column;
@@ -66,11 +119,26 @@ body {
 }
 
 .game-info {
-  margin: 30px auto;
+  margin: auto;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+.game-info div {
   display: flex;
   flex-direction: column;
+  color: white;
+  background-color: rgb(187, 173, 160);
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin: 2px;
+  text-align: center;
 }
 
+.game-info div p {
+  font-weight: bold;
+}
 .game-board {
   display: flex;
   flex-direction: column;
@@ -85,17 +153,17 @@ body {
 }
 
 .control{
-  width: 80px;
+  width: 70px;
   height: 70px;
   text-align: center;
   padding: 0;
-  margin: 20px;
+  margin: 10px;
   background: rgb(119, 110, 101);
   color: white;
   border: none;
   border-radius: 10px;
   font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
+  font-size: 40px;
   font-weight: 600;
 }
 
@@ -108,16 +176,16 @@ body {
 .tile {
   display: flex;
   padding: 0;
-  margin: 7px;
-  width: 100px;
-  height: 100px;
+  margin: 5px;
+  width: 55px;
+  height: 55px;
   text-align: center;
   align-items: center;
   justify-content: center;
   background: rgba(238, 228, 218, 0.35);
   font-family: 'Open Sans', sans-serif;
   font-weight: 800;
-  font-size: 50px;
+  font-size: 35px;
   color: rgb(119, 110, 101);
   border-radius: 3px;
 }
@@ -180,3 +248,17 @@ body {
   @media screen and (max-width: 520px) {
     .tile.tile-2048  {
       font-size: 15px; } }
+
+
+@media screen and (min-width: 767px) {
+  .description {
+    width: 700px;
+  }
+
+  .tile {
+    width: 110px;
+    height: 110px;
+    font-size: 50px;
+    margin: 8px;
+  }
+}
