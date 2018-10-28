@@ -1,54 +1,3 @@
-/* body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-}
-
-ol, ul {
-  padding-left: 30px;
-}
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-.status {
-  margin-bottom: 10px;
-}
-
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
-}
-
-.square:focus {
-  outline: none;
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
-} */
-
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
 
 body {
@@ -98,24 +47,27 @@ hr {
 .game-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  margin: auto;
+  padding: 20px;
 }
 
 .title {
   display: flex;
   font-weight: bold;
-  font-size: 40px;
-  padding-right: 20px;
+  font-size: 60px;
 }
 
 .aux-header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+}
+.subtitle {
+  margin-right: auto;
 }
 
 .aux-header button {
@@ -124,6 +76,7 @@ hr {
   font-weight: bold;
   padding: 15px;
   border-radius: 4px;
+  margin-left: 10px;
 }
 .game {
   display: flex;
