@@ -112,182 +112,192 @@ class Game extends React.Component {
   }
 
   shift(bit) {
-    // 0 = left, 1 = up, 2 = down, 3 = right
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const tiles = current.tiles.slice();
-    const rows = 4;
-    const rowSize = 4;
-    let moveMade = false;
+    if (this.move_possible) {
+      // 0 = left, 1 = up, 2 = down, 3 = right
+      const history = this.state.history.slice(0, this.state.stepNumber + 1);
+      const current = history[history.length - 1];
+      const tiles = current.tiles.slice();
+      const rows = 4;
+      const rowSize = 4;
+      let moveMade = false;
 
-    if (bit === 0) {
-      //Shifting left
-      for (let i = 0; i < rows; i++) {
-        //Perform possible merges.
-        let prev = i*rowSize;
-        let ptr = prev + 1;
-        while (ptr < (i+1)*rowSize) {
-          if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
-            this.setState({score: this.state.score + tiles[ptr]});
-            tiles[prev] = tiles[prev]*2;
-            tiles[ptr] = -1;
-            prev = ptr;
-            moveMade = true;
-          } else if (tiles[ptr] > 0) {
-            prev = ptr;
+      if (bit === 0) {
+        //Shifting left
+        for (let i = 0; i < rows; i++) {
+          //Perform possible merges.
+          let prev = i*rowSize;
+          let ptr = prev + 1;
+          while (ptr < (i+1)*rowSize) {
+            if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
+              this.setState({score: this.state.score + tiles[ptr]});
+              tiles[prev] = tiles[prev]*2;
+              tiles[ptr] = -1;
+              prev = ptr;
+              moveMade = true;
+            } else if (tiles[ptr] > 0) {
+              prev = ptr;
+            }
+            ptr++;
           }
-          ptr++;
-        }
 
-        //Moves everything as left as possible
-        let pivot = i*rowSize;
-        while (pivot < (i+1)*rowSize && tiles[pivot] > 0) {
-          pivot++;
-        }
-        ptr = pivot; //Reset ptr
-        while (ptr < (i+1)*rowSize) {
-          if (tiles[ptr] > 0) {
-            tiles[pivot] = tiles[ptr];
-            tiles[ptr] = -1;
+          //Moves everything as left as possible
+          let pivot = i*rowSize;
+          while (pivot < (i+1)*rowSize && tiles[pivot] > 0) {
             pivot++;
-            moveMade = true;
           }
-          ptr++;
-        }
-      }
-
-    } else if (bit === 1) {
-      //Shifting up
-      for (let i = 0; i < rowSize; i++) {
-
-        //Perform possible merges
-        let prev = i;
-        let ptr = prev + rowSize;
-        while (ptr < tiles.length) {
-          if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
-            this.setState({score: this.state.score + tiles[ptr]});
-            tiles[prev] = tiles[prev]*2;
-            tiles[ptr] = -1;
-            prev = ptr;
-            moveMade = true;
-          } else {
+          ptr = pivot; //Reset ptr
+          while (ptr < (i+1)*rowSize) {
             if (tiles[ptr] > 0) {
-              prev = ptr;
+              tiles[pivot] = tiles[ptr];
+              tiles[ptr] = -1;
+              pivot++;
+              moveMade = true;
             }
+            ptr++;
           }
-          ptr += rowSize;
         }
 
-        let pivot = i;
-        while (pivot < tiles.length && tiles[pivot] > 0) {
-          pivot += rowSize;
-        }
-        ptr = pivot;
-        while (ptr < tiles.length) {
-          if (tiles[ptr] > 0) {
-            tiles[pivot] = tiles[ptr];
-            tiles[ptr] = -1;
+      } else if (bit === 1) {
+        //Shifting up
+        for (let i = 0; i < rowSize; i++) {
+
+          //Perform possible merges
+          let prev = i;
+          let ptr = prev + rowSize;
+          while (ptr < tiles.length) {
+            if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
+              this.setState({score: this.state.score + tiles[ptr]});
+              tiles[prev] = tiles[prev]*2;
+              tiles[ptr] = -1;
+              prev = ptr;
+              moveMade = true;
+            } else {
+              if (tiles[ptr] > 0) {
+                prev = ptr;
+              }
+            }
+            ptr += rowSize;
+          }
+
+          let pivot = i;
+          while (pivot < tiles.length && tiles[pivot] > 0) {
             pivot += rowSize;
-            moveMade = true;
           }
-          ptr += rowSize;
-        }
-      }
-    } else if (bit === 2) {
-      //Shifting down
-      for (let i = 0; i < rowSize; i++) {
-
-        //Perform possible merges
-        let prev = tiles.length - i - 1;
-        let ptr = prev - rowSize;
-        while (ptr >= 0) {
-          if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
-            this.setState({score: this.state.score + tiles[ptr]});
-            tiles[prev] = tiles[prev]*2;
-            tiles[ptr] = -1;
-            prev = ptr;
-            moveMade = true;
-          } else {
+          ptr = pivot;
+          while (ptr < tiles.length) {
             if (tiles[ptr] > 0) {
+              tiles[pivot] = tiles[ptr];
+              tiles[ptr] = -1;
+              pivot += rowSize;
+              moveMade = true;
+            }
+            ptr += rowSize;
+          }
+        }
+      } else if (bit === 2) {
+        //Shifting down
+        for (let i = 0; i < rowSize; i++) {
+
+          //Perform possible merges
+          let prev = tiles.length - i - 1;
+          let ptr = prev - rowSize;
+          while (ptr >= 0) {
+            if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
+              this.setState({score: this.state.score + tiles[ptr]});
+              tiles[prev] = tiles[prev]*2;
+              tiles[ptr] = -1;
+              prev = ptr;
+              moveMade = true;
+            } else {
+              if (tiles[ptr] > 0) {
+                prev = ptr;
+              }
+            }
+            ptr -= rowSize;
+          }
+
+          let pivot = tiles.length - i - 1;
+          while (pivot >= 0 && tiles[pivot] > 0) {
+            pivot -= rowSize;
+          }
+          ptr = pivot;
+          while (ptr >= 0) {
+            if (tiles[ptr] > 0) {
+              tiles[pivot] = tiles[ptr];
+              tiles[ptr] = -1;
+              pivot -= rowSize;
+              moveMade = true;
+            }
+            ptr -= rowSize;
+          }
+        }
+      } else if (bit === 3) {
+        //Shifting right
+        for (let i = 0; i < rows; i++) {
+          //Perform possible merges.
+          let prev = (i+1)*rowSize-1;
+          let ptr = prev - 1;
+          while (ptr > i*rowSize-1) {
+            if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
+              this.setState({score: this.state.score + tiles[ptr]});
+              tiles[prev] = tiles[prev]*2;
+              tiles[ptr] = -1;
+              prev = ptr;
+              moveMade = true;
+            } else if (tiles[ptr] > 0) {
               prev = ptr;
             }
+            ptr--;
           }
-          ptr -= rowSize;
-        }
 
-        let pivot = tiles.length - i - 1;
-        while (pivot >= 0 && tiles[pivot] > 0) {
-          pivot -= rowSize;
-        }
-        ptr = pivot;
-        while (ptr >= 0) {
-          if (tiles[ptr] > 0) {
-            tiles[pivot] = tiles[ptr];
-            tiles[ptr] = -1;
-            pivot -= rowSize;
-            moveMade = true;
-          }
-          ptr -= rowSize;
-        }
-      }
-    } else if (bit === 3) {
-      //Shifting right
-      for (let i = 0; i < rows; i++) {
-        //Perform possible merges.
-        let prev = (i+1)*rowSize-1;
-        let ptr = prev - 1;
-        while (ptr > i*rowSize-1) {
-          if(tiles[ptr] > 0 && tiles[ptr] === tiles[prev]) {
-            this.setState({score: this.state.score + tiles[ptr]});
-            tiles[prev] = tiles[prev]*2;
-            tiles[ptr] = -1;
-            prev = ptr;
-            moveMade = true;
-          } else if (tiles[ptr] > 0) {
-            prev = ptr;
-          }
-          ptr--;
-        }
-
-        //Moves everything as right as possible
-        let pivot = (i+1)*rowSize-1;
-        while (pivot >= i*rowSize && tiles[pivot] > 0) {
-          pivot--;
-        }
-        ptr = pivot; //Reset ptr
-        while (ptr >= i*rowSize) {
-          if (tiles[ptr] > 0) {
-            tiles[pivot] = tiles[ptr];
-            tiles[ptr] = -1;
+          //Moves everything as right as possible
+          let pivot = (i+1)*rowSize-1;
+          while (pivot >= i*rowSize && tiles[pivot] > 0) {
             pivot--;
-            moveMade = true;
           }
-          ptr--;
+          ptr = pivot; //Reset ptr
+          while (ptr >= i*rowSize) {
+            if (tiles[ptr] > 0) {
+              tiles[pivot] = tiles[ptr];
+              tiles[ptr] = -1;
+              pivot--;
+              moveMade = true;
+            }
+            ptr--;
+          }
         }
       }
-    }
 
-    if (moveMade && this.move_possible(tiles, rows, rowSize)) {
-      //Generate a new tile to add in an empty space.
       let emptySpaces = [];
       for (let i = 0; i < tiles.length; i++) {
         if (tiles[i] < 0) {
           emptySpaces.push(i);
         }
       }
-      if (emptySpaces) {
-        let rand = Math.floor(Math.random()*emptySpaces.length);
-        tiles[emptySpaces[rand]] = 2;
+
+      if (!moveMade && emptySpaces.length === 0) {
+        this.setState({
+          best_score: Math.max(this.state.score, this.state.best_score),
+          score: 0,
+        })
       }
 
-      this.setState({
-        history: history.concat([
-          {
-            tiles: tiles
-          }
-        ]),
-        stepNumber: history.length,
-      })
+      if (moveMade) {
+        //Generate a new tile to add in an empty space.
+        if (emptySpaces) {
+          let rand = Math.floor(Math.random()*emptySpaces.length);
+          tiles[emptySpaces[rand]] = 2;
+        }
+
+        this.setState({
+          history: history.concat([
+            {
+              tiles: tiles
+            }
+          ]),
+          stepNumber: history.length,
+        })
+      }
     }
   }
 
