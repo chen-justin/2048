@@ -11,4 +11,4 @@ Some possible future improvements
 - Allow generalization of 2048's game board and allow variable rows and columns
 - Add transitions for sliding and merging. (This one in particular stumps me. Not entirely sure how to record the logic to transition tiles shifting and merging since the board rerenders from the array every time.
 - Add an animation for increasing score.
-- Add a method for reliably checking to see if you've lost or not. Right now there's a bug where if the game board is full and you try and shift the game will think you've lost even though there are still moves possible.
+- Add a method for reliably checking to see if you've lost or not and perhaps add a modal letting you know you lost?
