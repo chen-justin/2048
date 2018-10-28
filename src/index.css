@@ -58,6 +58,7 @@ body {
   width: 100%;
   font-family: 'Open Sans', sans-serif;
   color: rgb(119, 110, 101);
+  background-color: rgb(250, 248, 239);
 }
 
 p {
@@ -67,6 +68,9 @@ p {
 
 button {
   touch-action: manipulation;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
 button:active {
@@ -93,16 +97,12 @@ hr {
 
 .game-header {
   display: flex;
-  margin: auto;
-  margin-bottom: 30px;
-  flex-direction: row;
-  width: 100%;
+  justify-content: space-between;
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  align-self: center;
   margin: auto;
 }
 
@@ -112,6 +112,19 @@ hr {
   font-size: 40px;
   padding-right: 20px;
 }
+
+.aux-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.aux-header button {
+  background-color: rgb(119, 110, 101);
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 4px;
+}
 .game {
   display: flex;
   flex-direction: column;
@@ -119,7 +132,6 @@ hr {
 }
 
 .game-info {
-  margin: auto;
   padding: 20px 0;
   display: flex;
   flex-direction: row;
@@ -188,6 +200,8 @@ hr {
   font-size: 35px;
   color: rgb(119, 110, 101);
   border-radius: 3px;
+  transition: 200ms ease-in-out;
+  transition-property: transform;
 }
 
 .tile.tile-2  {
@@ -253,6 +267,19 @@ hr {
 @media screen and (min-width: 767px) {
   .description {
     width: 700px;
+  }
+
+  .header {
+    width: 600px;
+    margin: 80px auto;
+  }
+
+
+  .subtitle {
+    font-size: 25px;
+  }
+  .title {
+    font-size: 80px;
   }
 
   .tile {
