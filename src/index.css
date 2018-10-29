@@ -113,6 +113,10 @@ hr {
   border-radius: 10px;
 }
 
+.swipe{
+  display: flex;
+}
+
 .controls {
   margin: 20px auto;
 }

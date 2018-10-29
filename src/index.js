@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Swipeable from 'react-swipeable'
+
 function Tile(props) {
   let tags = "tile";
   if (props.value < 0) { //For our purposes, negative values will be the "empty" value.
@@ -88,6 +90,7 @@ class Game extends React.Component {
     this.state.history[0].tiles[arr[0]] = 2;
     this.state.history[0].tiles[arr[1]] = 2;
   }
+
 
   reset_game() {
     let arr = []
@@ -309,7 +312,7 @@ class Game extends React.Component {
         }
 
         this.setState({
-          best_score: Math.max(this.state.history[this.state.stepNumber].score, this.state.best_score),
+          best_score: Math.max(this.state.history[this.state.stepNumber].score + addedScore, this.state.best_score),
           history: history.concat([
             {
               tiles: tiles,
@@ -342,7 +345,6 @@ class Game extends React.Component {
 
       }
     }
-    console.log(move_possible);
     return move_possible;
   }
 
@@ -355,7 +357,7 @@ class Game extends React.Component {
     document.onkeydown = this.handleKeyPress;
 
     return(
-      <div className="game" onKeyPress={this.handleKeyPress}>
+      <div id="game" className="game" onKeyPress={this.handleKeyPress}>
         <div className = "header">
           <div className = "game-header">
             <p className="title">2048</p>
@@ -374,15 +376,24 @@ class Game extends React.Component {
               </div>
             </div>
           </div>
-          <div class="aux-header">
+          <div className="aux-header">
             <p className="subtitle">A take on 2048 in React.</p>
             <button className="resetGame" onClick={() => this.undo()}>Undo</button>
             <button className="resetGame" onClick={() => this.reset_game()}>Reset</button>
           </div>
         </div>
-        <Board
-          tiles={current.tiles}
-        />
+        <Swipeable
+          className="swipe"
+          onSwipedLeft={() => this.shift(0)}
+          onSwipedUp={() => this.shift(1)}
+          onSwipedDown={() => this.shift(2)}
+          onSwipedRight={() => this.shift(3)}
+          preventDefaultTouchmoveEvent={true}
+        >
+          <Board
+            tiles={current.tiles}
+          />
+        </Swipeable>
         <div className="controls">
           <button className="control" onClick={() => this.shift(0)}><i className="fas fa-arrow-left"></i></button>
           <button className="control" onClick={() => this.shift(1)}><i className="fas fa-arrow-up"></i></button>
